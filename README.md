@@ -1,4 +1,4 @@
-# Hydrangea 🌱
+# Hydrangea 💐
 
 Newest data api for hydroponics.
 
