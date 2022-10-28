@@ -20,7 +20,7 @@ router = APIRouter()
 
 
 client = motor.motor_asyncio.AsyncIOMotorClient(os.environ["MONGODB_URL"])
-db = client.hydro
+db = client.garden
 
 
 @router.post("/", response_description="Add new garden", response_model=GardenModel)

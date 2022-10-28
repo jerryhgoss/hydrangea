@@ -23,4 +23,4 @@ app.include_router(SensorRouter, tags=["Sensor"], prefix="/Sensor")
 
 @app.get("/", tags=["Root"])
 async def read_root():
-    return {"message": "Welcome to this fantastic app!"}
+    return {"message": "Welcome to the 2022-23 Hydro API!"}

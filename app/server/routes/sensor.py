@@ -21,7 +21,7 @@ router = APIRouter()
 
 
 client = motor.motor_asyncio.AsyncIOMotorClient(os.environ["MONGODB_URL"])
-db = client.college
+db = client.sensor
 
 
 @router.post("/", response_description="Add new sensor", response_model=SensorModel)
