@@ -10,42 +10,41 @@ This is the schema layed out for the api to organize the various sensors and act
 
 | Name       | Type          |
 | ---------- | ------------- |
-| Id         | `Key`         |
-| Name       | `String`      |
-| Garden_Id  | `Foreign Key` |
-| Interval   | `Float`       |
-| Created_at | `Timestamp`   |
+| id         | `Key`         |
+| name       | `String`      |
+| garden_id  | `Foreign Key` |
+| interval   | `Float`       |
+| created_at | `Datetime`   |
 
 ### Scheduled Actuators
 
 | Name       | Type          |
 | ---------- | ------------- |
-| Id         | `Key`         |
-| Name       | `String`      |
-| Garden_Id  | `Foreign Key` |
-| On_times   | `[str]`       |
-| Off_times  | `[str]`       |
-| Created_at | `Timestamp`   |
+| id         | `Key`         |
+| name       | `String`      |
+| garden_id  | `Foreign Key` |
+| times   | `[times]`       |
+| created_at | `Datetime`   |
 
-### Reactive Actuators
+### Reactive Actuators 
 
 | Name       | Type          |
 | ---------- | ------------- |
-| Id         | `Key`         |
-| Name       | `String`      |
-| Garden_Id  | `Foreign Key` |
-| Sensor     | `Foreign Key` |
-| Threshold  | `Float`       |
-| Created_at | `Timestamp`   |
+| id         | `Key`         |
+| name       | `String`      |
+| sensor_id    | `Foreign Key` |
+| threshold  | `Float`       |
+| interval  | `Float`       |
+| created_at | `Datetime`   |
 
 ### Gardens
 
 | Name       | Type        |
 | ---------- | ----------- |
-| Id         | `Key`       |
-| Name       | `String`    |
-| locations  | `String`    |
-| Created_at | `Timestamp` |
+| id         | `Key`       |
+| name       | `String`    |
+| location  | `String`    |
+| created_at | `Datetime` |
 
 # Logging
 
@@ -55,49 +54,46 @@ We will also keep track of the actions that actually took place and readings tak
 
 | Name       | Type          |
 | ---------- | ------------- |
-| Id         | `Key`         |
-| Name       | `String`      |
-| Garden_Id  | `Foreign Key` |
-| Sensor_Id  | `Foreign Key` |
-| Value      | `Float`       |
-| Created_at | `Timestamp`   |
+| id         | `Key`         |
+| name       | `String`      |
+| sensor_id  | `Foreign Key` |
+| value      | `Float`       |
+| created_at | `Datetime`   |
 
 ### Scheduled Actions
 
 | Name       | Type          |
 | ---------- | ------------- |
-| Id         | `Key`         |
-| Name       | `String`      |
-| Garden_Id  | `Foreign Key` |
-| Type       | `str`         |
-| Data       | `str`         |
-| Created_at | `Timestamp`   |
+| id         | `Key`         |
+| name       | `String`      |
+| actuator  | `Foreign Key` |
+| data       | `String`         |
+| created_at | `Datetime`   |
 
 ### Reactive Actions
 
 | Name       | Type          |
 | ---------- | ------------- |
-| Id         | `Key`         |
-| Name       | `String`      |
-| Garden_Id  | `Foreign Key` |
-| Type       | `str`         |
-| Data       | `str`         |
-| Created_at | `Timestamp`   |
+| id         | `Key`         |
+| name       | `String`      |
+| actuator  | `Foreign Key` |
+| data       | `String`         |
+| created_at | `Datetime`   |
 
 # Config
 
 The Configurations Table will be used in conjunction with logging data in [Mother Nature](https://github.com/Olin-Hydro/mother-nature)
 
-### Config File
+### Operational Config File
 
 | Name                   | Type            |
 | ---------------------- | --------------- |
-| Id                     | `Key`           |
-| Garden_Id              | `Foreign Key`   |
-| Sensor_ids             | `[Foreign Key]` |
-| Scheduled_actuator_ids | `[Foreign Key]` |
-| Reactive_actuator_ids  | `[Foreign Key]` |
-| Created_at             | `Timestamp`     |
+| id                     | `Key`           |
+| garden_id              | `Foreign Key`   |
+| sensor_ids             | `Json` |
+| scheduled_actuator_ids | `Json` |
+| reactive_actuator_ids  | `Json` |
+| created_at             | `Datetime`     |
 
 <hr />
 
@@ -153,15 +149,23 @@ The Configurations Table will be used in conjunction with logging data in [Mothe
 
 | Verb | URI Pattern                         | Controller Action                                |
 | ---- | ----------------------------------- | ------------------------------------------------ |
-| GET  | `/logging/sensors/`                 | `view all sensor readings`                       |
-| GET  | `/logging/sensors/:sensorId`        | `view all readings for a specific sensor`        |
-| GET  | `/logging/sensors/:sensorId/recent` | `view most recent reading for a specific sensor` |
-| POST | `/logging/sensors/`                 | `add sensor reading`                             |
+| GET  | `/sensors/logging/`                 | `view all sensor readings`                       |
+| GET  | `/sensors/logging/:sensorId`        | `view all readings for a specific sensor`        |
+| GET  | `/sensors/logging/:sensorId/recent` | `view most recent reading for a specific sensor` |
+| POST | `/sensors/logging/`                 | `add sensor reading`                             |
 
-### Actions
+### Reactive Actions
 
 | Verb | URI Pattern                 | Controller Action      |
 | ---- | --------------------------- | ---------------------- |
-| GET  | `/logging/actions/`         | `view all actions`     |
-| GET  | `/logging/actions/actionId` | `view specific action` |
-| POST | `/logging/actions/`         | `add actions`          |
+| GET  | `/ra/logging/actions/`         | `view all actions`     |
+| GET  | `/ra/logging/actions/:actionId` | `view specific action` |
+| POST | `/ra/logging/actions/`         | `add actions`          |
+
+### Scheduled Actions
+
+| Verb | URI Pattern                 | Controller Action      |
+| ---- | --------------------------- | ---------------------- |
+| GET  | `/sa/logging/actions/`         | `view all actions`     |
+| GET  | `/sa/logging/actions/:actionId` | `view specific action` |
+| POST | `/sa/logging/actions/`         | `add actions`          |
