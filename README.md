@@ -1,5 +1,9 @@
 # Hydrangea 💐
 
+
+https://www.mongodb.com/developer/languages/python/python-quickstart-fastapi/
+
+
 Newest data api for hydroponics.
 
 # Schema
