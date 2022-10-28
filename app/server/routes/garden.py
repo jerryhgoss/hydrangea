@@ -19,8 +19,8 @@ from server.models.garden import GardenModel, UpdateGardenModel
 router = APIRouter()
 
 
-client = motor.motor_asyncio.AsyncIOMotorClient(os.environ["MONGODB_URL"])
-db = client.garden
+from server.database import db
+
 
 
 @router.post("/", response_description="Add new garden", response_model=GardenModel)

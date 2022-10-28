@@ -19,9 +19,8 @@ from server.models.sensor import SensorModel, UpdateSensorModel
 
 router = APIRouter()
 
+from server.database import db
 
-client = motor.motor_asyncio.AsyncIOMotorClient(os.environ["MONGODB_URL"])
-db = client.sensor
 
 
 @router.post("/", response_description="Add new sensor", response_model=SensorModel)

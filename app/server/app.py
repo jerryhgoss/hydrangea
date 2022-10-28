@@ -14,8 +14,6 @@ from server.routes.garden import router as GardenRouter
 from server.routes.sensor import router as SensorRouter
 
 app = FastAPI()
-client = motor.motor_asyncio.AsyncIOMotorClient(os.environ["MONGODB_URL"])
-db = client.college
 
 app.include_router(GardenRouter, tags=["Garden"], prefix="/Garden")
 
