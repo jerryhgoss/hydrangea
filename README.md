@@ -1,10 +1,23 @@
 # Hydrangea 💐
 
-
-https://www.mongodb.com/developer/languages/python/python-quickstart-fastapi/
-
-
 Newest data api for hydroponics.
+
+## Contribute
+
+To setup, make sure you have python and pip installed.
+
+Instantiate a [virtual environment](https://docs.python.org/3/library/venv.html) named venv if the venv folder does not exist. Make sure you activate it.
+
+Download [Mongodb](https://www.mongodb.com/docs/manual/administration/install-community/) and optionally mongosh.
+
+Create a .env file with a database URL. To store database locally, add:
+` MONGODB_URL=mongodb://localhost:27017/test`
+
+To Run API from root directory, run
+
+```
+python3 app/main.py
+```
 
 # Schema
 
@@ -17,8 +30,7 @@ This is the schema layed out for the api to organize the various sensors and act
 | id         | `Key`         |
 | name       | `String`      |
 | garden_id  | `Foreign Key` |
-| interval   | `Float`       |
-| created_at | `Datetime`   |
+| created_at | `Datetime`    |
 
 ### Scheduled Actuators
 
@@ -27,27 +39,24 @@ This is the schema layed out for the api to organize the various sensors and act
 | id         | `Key`         |
 | name       | `String`      |
 | garden_id  | `Foreign Key` |
-| times   | `[times]`       |
-| created_at | `Datetime`   |
+| created_at | `Datetime`    |
 
-### Reactive Actuators 
+### Reactive Actuators
 
 | Name       | Type          |
 | ---------- | ------------- |
 | id         | `Key`         |
 | name       | `String`      |
-| sensor_id    | `Foreign Key` |
-| threshold  | `Float`       |
-| interval  | `Float`       |
-| created_at | `Datetime`   |
+| sensor_id  | `Foreign Key` |
+| created_at | `Datetime`    |
 
 ### Gardens
 
-| Name       | Type        |
-| ---------- | ----------- |
-| id         | `Key`       |
-| name       | `String`    |
-| location  | `String`    |
+| Name       | Type       |
+| ---------- | ---------- |
+| id         | `Key`      |
+| name       | `String`   |
+| location   | `String`   |
 | created_at | `Datetime` |
 
 # Logging
@@ -62,7 +71,7 @@ We will also keep track of the actions that actually took place and readings tak
 | name       | `String`      |
 | sensor_id  | `Foreign Key` |
 | value      | `Float`       |
-| created_at | `Datetime`   |
+| created_at | `Datetime`    |
 
 ### Scheduled Actions
 
@@ -70,9 +79,9 @@ We will also keep track of the actions that actually took place and readings tak
 | ---------- | ------------- |
 | id         | `Key`         |
 | name       | `String`      |
-| actuator  | `Foreign Key` |
-| data       | `String`         |
-| created_at | `Datetime`   |
+| actuator   | `Foreign Key` |
+| data       | `String`      |
+| created_at | `Datetime`    |
 
 ### Reactive Actions
 
@@ -80,9 +89,9 @@ We will also keep track of the actions that actually took place and readings tak
 | ---------- | ------------- |
 | id         | `Key`         |
 | name       | `String`      |
-| actuator  | `Foreign Key` |
-| data       | `String`         |
-| created_at | `Datetime`   |
+| actuator   | `Foreign Key` |
+| data       | `String`      |
+| created_at | `Datetime`    |
 
 # Config
 
@@ -90,14 +99,15 @@ The Configurations Table will be used in conjunction with logging data in [Mothe
 
 ### Operational Config File
 
-| Name                   | Type            |
-| ---------------------- | --------------- |
-| id                     | `Key`           |
-| garden_id              | `Foreign Key`   |
-| sensor_ids             | `Json` |
-| scheduled_actuator_ids | `Json` |
-| reactive_actuator_ids  | `Json` |
-| created_at             | `Datetime`     |
+| Name                | Type           |
+| ------------------- | -------------- |
+| id                  | `Key`          |
+| garden_id           | `Foreign Key`  |
+| name                | `String`       |
+| sensors             | `SensorConfig` |
+| scheduled_actuators | `SAConfig`     |
+| reactive_actuators  | `RAConfig`     |
+| created_at          | `Datetime`     |
 
 <hr />
 
@@ -160,16 +170,16 @@ The Configurations Table will be used in conjunction with logging data in [Mothe
 
 ### Reactive Actions
 
-| Verb | URI Pattern                 | Controller Action      |
-| ---- | --------------------------- | ---------------------- |
-| GET  | `/ra/logging/actions/`         | `view all actions`     |
+| Verb | URI Pattern                     | Controller Action      |
+| ---- | ------------------------------- | ---------------------- |
+| GET  | `/ra/logging/actions/`          | `view all actions`     |
 | GET  | `/ra/logging/actions/:actionId` | `view specific action` |
-| POST | `/ra/logging/actions/`         | `add actions`          |
+| POST | `/ra/logging/actions/`          | `add actions`          |
 
 ### Scheduled Actions
 
-| Verb | URI Pattern                 | Controller Action      |
-| ---- | --------------------------- | ---------------------- |
-| GET  | `/sa/logging/actions/`         | `view all actions`     |
+| Verb | URI Pattern                     | Controller Action      |
+| ---- | ------------------------------- | ---------------------- |
+| GET  | `/sa/logging/actions/`          | `view all actions`     |
 | GET  | `/sa/logging/actions/:actionId` | `view specific action` |
-| POST | `/sa/logging/actions/`         | `add actions`          |
+| POST | `/sa/logging/actions/`          | `add actions`          |
