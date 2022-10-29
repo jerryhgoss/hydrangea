@@ -104,10 +104,48 @@ The Configurations Table will be used in conjunction with logging data in [Mothe
 | id                  | `Key`          |
 | garden_id           | `Foreign Key`  |
 | name                | `String`       |
-| sensors             | `SensorConfig` |
-| scheduled_actuators | `SAConfig`     |
-| reactive_actuators  | `RAConfig`     |
+| sensors             | `[SS]` |
+| scheduled_actuators | `[SAS]`     |
+| reactive_actuators  | `[RAS]`     |
 | created_at          | `Datetime`     |
+
+Each config will be a list of schedule objects
+Example:
+```
+  {
+    "_id": "635ca8fdbb5a675ed710773a",
+    "name": "Config1",
+    "garden_id": "635ca57475e8e2a0afbe1bd5",
+    "scheduled_actuators": [
+      {
+        "SA_id": "635ca57475e8e2a0afbe1bd5",
+        "on": [
+          "uu"
+        ],
+        "off": [
+          "vv"
+        ]
+      }
+    ],
+    "sensors": [
+      {
+        "S_id": "635ca57475e8e2a0afbe1bd5",
+        "interval": 5
+      }
+    ],
+    "reactive_actuators": [
+      {
+        "RAS_id": "635ca57475e8e2a0afbe1bd5",
+        "interval": 5,
+        "threshold": 3,
+        "duration": 2,
+        "threshold_type": 1
+      }
+    ],
+    "created_at": "2022-10-29T00:15:35.270403"
+  }
+
+```
 
 <hr />
 

@@ -22,7 +22,6 @@ router = APIRouter()
 from server.database import db
 
 
-
 @router.post("/", response_description="Add new garden", response_model=GardenModel)
 async def create_garden(garden: GardenModel = Body(...)):
     garden = jsonable_encoder(garden)

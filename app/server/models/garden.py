@@ -10,7 +10,6 @@ load_dotenv()
 from .id import PyObjectId
 
 
-
 class GardenModel(BaseModel):
     id: PyObjectId = Field(default_factory=PyObjectId, alias="_id")
     name: str = Field(...)

@@ -1,5 +1,5 @@
 from datetime import datetime
-from typing import Optional
+from typing import Optional, Union
 
 from bson import ObjectId
 from dotenv import load_dotenv
@@ -16,8 +16,7 @@ from .id import PyObjectId
 class SensorModel(BaseModel):
     id: PyObjectId = Field(default_factory=PyObjectId, alias="_id")
     name: str = Field(...)
-    garden_id: PyObjectId = Field(default_factory=PyObjectId, alias="garden_id")
-    interval: float = Field(..., gt=0, description="sensing period")
+    garden_id: Union[PyObjectId, None] = Field(default=None, alias="garden_id")
 
     created_at: datetime = datetime.now()
     updated_at: datetime = datetime.now()
@@ -28,8 +27,7 @@ class SensorModel(BaseModel):
         validate_assignment = True
         json_encoders = {ObjectId: str}
         schema_extra = {
-            "example": {"name": "Temperature", 
-                        "interval": "5.0",
+            "example": {"name": "Temperature",
                         "garden_id": "6359d55bff77b777dd5c92e8"
                         }
         }
@@ -42,10 +40,9 @@ class SensorModel(BaseModel):
 
 class UpdateSensorModel(BaseModel):
     name: Optional[str]
-    interval: Optional[float]
     garden_id: Optional[PyObjectId]
 
     class Config:
         arbitrary_types_allowed = True
         json_encoders = {ObjectId: str}
-        schema_extra = {"example": {"name": "Humidity", "interval": "10.0"}}
+        schema_extra = {"example": {"name": "Humidity"}}
