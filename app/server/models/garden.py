@@ -12,7 +12,7 @@ from .id import PyObjectId
 
 
 class GardenModel(BaseModel):
-    id: PyObjectId = Field(default_factory=PyObjectId, alias="_id")
+    id: PyObjectId = Field(alias="_id")
     name: str = Field(...)
     location: str = Field(...)
     created_at: datetime = datetime.now()
