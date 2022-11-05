@@ -1,25 +1,19 @@
-import os
 import sys
-
-from fastapi import APIRouter, Body
-from fastapi.encoders import jsonable_encoder
-
-sys.path.append("../../server")
 from dotenv import load_dotenv
-
-load_dotenv()
-from typing import List
-
-import motor.motor_asyncio
-from fastapi import Body, HTTPException, status
+from fastapi import APIRouter, Body, status, HTTPException
 from fastapi.encoders import jsonable_encoder
+from typing import List
 from fastapi.responses import JSONResponse, Response
 from server.models.garden import GardenModel, UpdateGardenModel
+from server.database import db
+
+sys.path.append("../../server")
+
+
+load_dotenv()
+
 
 router = APIRouter()
-
-
-from server.database import db
 
 
 @router.post("/", response_description="Add new garden", response_model=GardenModel)

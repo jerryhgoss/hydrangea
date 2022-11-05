@@ -1,16 +1,12 @@
 from datetime import datetime
 from typing import Optional, Union
-
+from .id import PyObjectId
 from bson import ObjectId
 from dotenv import load_dotenv
 from pydantic import BaseModel, Field, root_validator
 
-from .garden import GardenModel
 
 load_dotenv()
-
-
-from .id import PyObjectId
 
 
 class SensorModel(BaseModel):
@@ -27,9 +23,7 @@ class SensorModel(BaseModel):
         validate_assignment = True
         json_encoders = {ObjectId: str}
         schema_extra = {
-            "example": {"name": "Temperature",
-                        "garden_id": "6359d55bff77b777dd5c92e8"
-                        }
+            "example": {"name": "Temperature", "garden_id": "6359d55bff77b777dd5c92e8"}
         }
 
         @root_validator
