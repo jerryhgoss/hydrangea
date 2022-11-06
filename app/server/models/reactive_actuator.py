@@ -11,7 +11,7 @@ load_dotenv()
 from .id import PyObjectId
 
 
-class ScheduledActuatorModel(BaseModel):
+class ReactiveActuatorModel(BaseModel):
     id: PyObjectId = Field(default_factory=PyObjectId, alias="_id")
     name: str = Field(...)
     sensor_id: Union[PyObjectId, None] = Field(default=None, alias="sensor_id")

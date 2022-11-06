@@ -5,7 +5,6 @@ from bson import ObjectId
 from dotenv import load_dotenv
 from pydantic import BaseModel, Field, root_validator
 
-
 load_dotenv()
 
 
