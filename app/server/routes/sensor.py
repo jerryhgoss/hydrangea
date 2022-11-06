@@ -60,13 +60,3 @@ async def update_sensor(id: str, sensor: UpdateSensorModel = Body(...)):
         return existing_sensor
 
     raise HTTPException(status_code=404, detail=f"Sensor {id} not found")
-
-
-@router.delete("/{id}", response_description="Delete a sensor")
-async def delete_sensor(id: str):
-    delete_result = await db["sensors"].delete_one({"_id": id})
-
-    if delete_result.deleted_count == 1:
-        return Response(status_code=status.HTTP_204_NO_CONTENT)
-
-    raise HTTPException(status_code=404, detail=f"Sensor {id} not found")
