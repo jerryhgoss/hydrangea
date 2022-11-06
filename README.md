@@ -52,12 +52,13 @@ This is the schema layed out for the api to organize the various sensors and act
 
 ### Gardens
 
-| Name       | Type       |
-| ---------- | ---------- |
-| id         | `Key`      |
-| name       | `String`   |
-| location   | `String`   |
-| created_at | `Datetime` |
+| Name       | Type                 |
+| ---------- | -------------------- |
+| id         | `Key`                |
+| name       | `String`             |
+| config     | `Operational Config` |
+| location   | `String`             |
+| created_at | `Datetime`           |
 
 # Logging
 
@@ -68,54 +69,75 @@ We will also keep track of the actions that actually took place and readings tak
 | Name       | Type          |
 | ---------- | ------------- |
 | id         | `Key`         |
-| name       | `String`      |
 | sensor_id  | `Foreign Key` |
 | value      | `Float`       |
 | created_at | `Datetime`    |
 
 ### Scheduled Actions
 
-| Name       | Type          |
-| ---------- | ------------- |
-| id         | `Key`         |
-| name       | `String`      |
-| actuator   | `Foreign Key` |
-| data       | `String`      |
-| created_at | `Datetime`    |
+| Name        | Type          |
+| ----------- | ------------- |
+| id          | `Key`         |
+| actuator_id | `Foreign Key` |
+| data        | `String`      |
+| created_at  | `Datetime`    |
 
 ### Reactive Actions
 
-| Name       | Type          |
-| ---------- | ------------- |
-| id         | `Key`         |
-| name       | `String`      |
-| actuator   | `Foreign Key` |
-| data       | `String`      |
-| created_at | `Datetime`    |
+| Name        | Type          |
+| ----------- | ------------- |
+| id          | `Key`         |
+| actuator_id | `Foreign Key` |
+| data        | `String`      |
+| created_at  | `Datetime`    |
 
 # Config
 
 The Configurations Table will be used in conjunction with logging data in [Mother Nature](https://github.com/Olin-Hydro/mother-nature)
 
-### Operational Config File
+### Operational Config
 
-| Name                | Type           |
-| ------------------- | -------------- |
-| id                  | `Key`          |
-| garden_id           | `Foreign Key`  |
-| name                | `String`       |
-| sensors             | `[SS]` |
-| scheduled_actuators | `[SAS]`     |
-| reactive_actuators  | `[RAS]`     |
-| created_at          | `Datetime`     |
+| Name                | Type       |
+| ------------------- | ---------- |
+| id                  | `Key`      |
+| name                | `String`   |
+| sensors             | `[SS]`     |
+| scheduled_actuators | `[SAS]`    |
+| reactive_actuators  | `[RAS]`    |
+| created_at          | `Datetime` |
 
-Each config will be a list of schedule objects
+### Sensor Schedule (SS)
+
+| Name     | Type          |
+| -------- | ------------- |
+| S_id     | `Foreign Key` |
+| interval | `Float`       |
+
+### Scheduled Actuator Schedule (SAS)
+
+| Name  | Type               |
+| ----- | ------------------ |
+| SA_id | `Foreign Key`      |
+| on    | `Array[Timestamp]` |
+| off   | `Array[Timestamp]` |
+
+### Reactive Actuator Schedule (RAS)
+
+| Name           | Type          |
+| -------------- | ------------- |
+| RA_id          | `Foreign Key` |
+| interval       | `Float`       |
+| threshold      | `Float`       |
+| duration       | `Float`       |
+| threshold_type | `Int`         |
+
+Each config will be a list of schedule objects  
 Example:
+
 ```
   {
     "_id": "635ca8fdbb5a675ed710773a",
     "name": "Config1",
-    "garden_id": "635ca57475e8e2a0afbe1bd5",
     "scheduled_actuators": [
       {
         "SA_id": "635ca57475e8e2a0afbe1bd5",
@@ -153,45 +175,41 @@ Example:
 
 ### Sensors
 
-| Verb   | URI Pattern          | Controller Action        |
-| ------ | -------------------- | ------------------------ |
-| GET    | `/sensors/`          | `view all sensors`       |
-| GET    | `/sensors/:sensorId` | `view individual sensor` |
-| POST   | `/sensors/`          | `add`                    |
-| PATCH  | `/sensor/:sensorId`  | `update`                 |
-| DELETE | `/sensor/:sensorId`  | `destroy`                |
+| Verb  | URI Pattern          | Controller Action        |
+| ----- | -------------------- | ------------------------ |
+| GET   | `/sensors/`          | `view all sensors`       |
+| GET   | `/sensors/:sensorId` | `view individual sensor` |
+| POST  | `/sensors/`          | `add`                    |
+| PATCH | `/sensor/:sensorId`  | `update`                 |
 
 ### Scheduled Actuators
 
-| Verb   | URI Pattern | Controller Action              |
-| ------ | ----------- | ------------------------------ |
-| GET    | `/sa/`      | `view all scheduled actuators` |
-| GET    | `/sa/:saId` | `view scheduled actuators`     |
-| POST   | `/sa/`      | `add`                          |
-| PATCH  | `/sa/:saId` | `update`                       |
-| DELETE | `/sa/:saId` | `destroy`                      |
+| Verb  | URI Pattern | Controller Action              |
+| ----- | ----------- | ------------------------------ |
+| GET   | `/sa/`      | `view all scheduled actuators` |
+| GET   | `/sa/:saId` | `view scheduled actuators`     |
+| POST  | `/sa/`      | `add`                          |
+| PATCH | `/sa/:saId` | `update`                       |
 
 ### Reactive Actuators
 
-| Verb   | URI Pattern | Controller Action             |
-| ------ | ----------- | ----------------------------- |
-| GET    | `/ra/`      | `view all reactive actuators` |
-| GET    | `/ra/:raId` | `view reactive actuators`     |
-| POST   | `/ra/`      | `add`                         |
-| PATCH  | `/ra/:raId` | `update`                      |
-| DELETE | `/ra/:raId` | `destroy`                     |
+| Verb  | URI Pattern | Controller Action             |
+| ----- | ----------- | ----------------------------- |
+| GET   | `/ra/`      | `view all reactive actuators` |
+| GET   | `/ra/:raId` | `view reactive actuators`     |
+| POST  | `/ra/`      | `add`                         |
+| PATCH | `/ra/:raId` | `update`                      |
 
 <hr />
 
 ### Gardens
 
-| Verb   | URI Pattern          | Controller Action                     |
-| ------ | -------------------- | ------------------------------------- |
-| GET    | `/gardens/`          | `view all gardens`                    |
-| GET    | `/gardens/:gardenId` | `view readings for a specific garden` |
-| POST   | `/gardens/`          | `add`                                 |
-| PATCH  | `/gardens/:gardenId` | `update`                              |
-| DELETE | `/gardens/:gardenId` | `destroy`                             |
+| Verb  | URI Pattern          | Controller Action                     |
+| ----- | -------------------- | ------------------------------------- |
+| GET   | `/gardens/`          | `view all gardens`                    |
+| GET   | `/gardens/:gardenId` | `view readings for a specific garden` |
+| POST  | `/gardens/`          | `add`                                 |
+| PATCH | `/gardens/:gardenId` | `update`                              |
 
 <hr />
 
