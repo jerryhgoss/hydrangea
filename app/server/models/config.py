@@ -1,8 +1,9 @@
 from datetime import datetime
+from typing import List
+
 from bson import ObjectId
 from dotenv import load_dotenv
 from pydantic import BaseModel, Field
-from typing import List
 
 from .id import PyObjectId
 from .schedules import RAS, SAS, SS
