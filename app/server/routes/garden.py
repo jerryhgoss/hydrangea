@@ -3,7 +3,7 @@ from dotenv import load_dotenv
 from fastapi import APIRouter, Body, status, HTTPException
 from fastapi.encoders import jsonable_encoder
 from typing import List
-from fastapi.responses import JSONResponse, Response
+from fastapi.responses import JSONResponse
 from server.models.garden import GardenModel, UpdateGardenModel
 from server.database import db
 

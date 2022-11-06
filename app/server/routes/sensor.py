@@ -5,7 +5,7 @@ from fastapi.encoders import jsonable_encoder
 
 
 from dotenv import load_dotenv
-from fastapi.responses import JSONResponse, Response
+from fastapi.responses import JSONResponse
 from server.models.sensor import SensorModel, UpdateSensorModel
 from server.database import db
 from typing import List
