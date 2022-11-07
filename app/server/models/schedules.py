@@ -1,7 +1,6 @@
-from enum import Enum, IntEnum
-from typing import List, Optional, Union
+from typing import List
 
-from pydantic import BaseModel, Field, root_validator
+from pydantic import BaseModel, Field
 
 from .id import PyObjectId
 
@@ -10,10 +9,12 @@ class SS(BaseModel):
     S_id: PyObjectId = Field(alias="S_id")
     interval: float
 
+
 class SAS(BaseModel):
     SA_id: PyObjectId = Field(alias="SA_id")
     on: List[str] = []
     off: List[str] = []
+
 
 class RAS(BaseModel):
     RAS_id: PyObjectId
