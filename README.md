@@ -207,7 +207,7 @@ Example:
 | Verb  | URI Pattern          | Controller Action                     |
 | ----- | -------------------- | ------------------------------------- |
 | GET   | `/gardens/`          | `view all gardens`                    |
-| GET   | `/gardens/:gardenId` | `view readings for a specific garden` |
+| GET   | `/gardens/:gardenId` | `view a specific garden` |
 | POST  | `/gardens/`          | `add`                                 |
 | PATCH | `/gardens/:gardenId` | `update`                              |
 
@@ -217,25 +217,24 @@ Example:
 
 ### Sensor
 
-| Verb | URI Pattern                         | Controller Action                                |
-| ---- | ----------------------------------- | ------------------------------------------------ |
-| GET  | `/sensors/logging/`                 | `view all sensor readings`                       |
-| GET  | `/sensors/logging/:sensorId`        | `view all readings for a specific sensor`        |
-| GET  | `/sensors/logging/:sensorId/recent` | `view most recent reading for a specific sensor` |
-| POST | `/sensors/logging/`                 | `add sensor reading`                             |
+| Verb | URI Pattern                  | Params                                 | Controller Action                                                                               |
+| ---- | ---------------------------- | -------------------------------------- | ----------------------------------------------------------------------------------------------- |
+| GET  | `/sensors/logging/`          | limit: int,start: ISO8601,end: ISO8601 | `view all sensor readings between start and end time up to limit number of logs`                |
+| GET  | `/sensors/logging/:sensorId` | limit: int,start: ISO8601,end: ISO8601 | `view all readings for a specific sensor between start and end time up to limit number of logs` |
+| POST | `/sensors/logging/`          |                                        | `add sensor reading`                                                                            |
 
 ### Reactive Actions
 
-| Verb | URI Pattern                     | Controller Action      |
-| ---- | ------------------------------- | ---------------------- |
-| GET  | `/ra/logging/actions/`          | `view all actions`     |
-| GET  | `/ra/logging/actions/:actionId` | `view specific action` |
-| POST | `/ra/logging/actions/`          | `add actions`          |
+| Verb | URI Pattern                     | Params                                 | Controller Action                                                                |
+| ---- | ------------------------------- | -------------------------------------- | -------------------------------------------------------------------------------- |
+| GET  | `/ra/logging/actions/`          | limit: int,start: ISO8601,end: ISO8601 | `view all actions between start and end time and up to limit number of logs`     |
+| GET  | `/ra/logging/actions/:actionId` | limit: int,start: ISO8601,end: ISO8601 | `view specific action between start and end time and up to limit number of logs` |
+| POST | `/ra/logging/actions/`          |                                        | `add actions`                                                                    |
 
 ### Scheduled Actions
 
-| Verb | URI Pattern                     | Controller Action      |
-| ---- | ------------------------------- | ---------------------- |
-| GET  | `/sa/logging/actions/`          | `view all actions`     |
-| GET  | `/sa/logging/actions/:actionId` | `view specific action` |
-| POST | `/sa/logging/actions/`          | `add actions`          |
+| Verb | URI Pattern                     | Params                                 | Controller Action                                                                |
+| ---- | ------------------------------- | -------------------------------------- | -------------------------------------------------------------------------------- |
+| GET  | `/sa/logging/actions/`          | limit: int,start: ISO8601,end: ISO8601 | `view all actions between start and end time and up to limit number of logs`     |
+| GET  | `/sa/logging/actions/:actionId` | limit: int,start: ISO8601,end: ISO8601 | `view specific action between start and end time and up to limit number of logs` |
+| POST | `/sa/logging/actions/`          | limit: int,start: ISO8601,end: ISO8601 | `add actions`                                                                    |
