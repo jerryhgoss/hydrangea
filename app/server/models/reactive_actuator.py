@@ -1,14 +1,13 @@
 from datetime import datetime
-from typing import Optional, Union
+from typing import Union
 
 from bson import ObjectId
 from dotenv import load_dotenv
 from pydantic import BaseModel, Field, root_validator
 
-load_dotenv()
-
-
 from .id import PyObjectId
+
+load_dotenv()
 
 
 class ReactiveActuatorModel(BaseModel):
@@ -24,9 +23,10 @@ class ReactiveActuatorModel(BaseModel):
         validate_assignment = True
         json_encoders = {ObjectId: str}
         schema_extra = {
-            "example": {"name": "Nutrient pump",
-                        "sensor_id": "6359d55bff77b777dd5c92e8"
-                        }
+            "example": {
+                "name": "Nutrient pump",
+                "sensor_id": "6359d55bff77b777dd5c92e8",
+            }
         }
 
         @root_validator
