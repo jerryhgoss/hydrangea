@@ -17,7 +17,7 @@ class SAS(BaseModel):
 
 
 class RAS(BaseModel):
-    RAS_id: PyObjectId
+    RA_id: PyObjectId
     interval: float = Field(gt=0, description="Checking Period")
     threshold: float = Field(gt=0, description="Threshold ActivationValue")
     duration: float = Field(gt=0, description="How long to Actuate for")

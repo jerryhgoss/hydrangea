@@ -3,7 +3,7 @@ from dotenv import load_dotenv
 from fastapi import APIRouter, Body, status, HTTPException
 from fastapi.encoders import jsonable_encoder
 from typing import List
-from fastapi.responses import JSONResponse, Response
+from fastapi.responses import JSONResponse
 from server.models.garden import GardenModel, UpdateGardenModel
 from server.database import db
 
@@ -57,15 +57,5 @@ async def update_garden(id: str, garden: UpdateGardenModel = Body(...)):
 
     if (existing_garden := await db["gardens"].find_one({"_id": id})) is not None:
         return existing_garden
-
-    raise HTTPException(status_code=404, detail=f"Garden {id} not found")
-
-
-@router.delete("/{id}", response_description="Delete a garden")
-async def delete_garden(id: str):
-    delete_result = await db["gardens"].delete_one({"_id": id})
-
-    if delete_result.deleted_count == 1:
-        return Response(status_code=status.HTTP_204_NO_CONTENT)
 
     raise HTTPException(status_code=404, detail=f"Garden {id} not found")
