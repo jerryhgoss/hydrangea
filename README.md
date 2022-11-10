@@ -13,6 +13,12 @@ Download [Mongodb](https://www.mongodb.com/docs/manual/administration/install-co
 Create a .env file with a database URL. To store database locally, add:
 ` MONGODB_URL=mongodb://localhost:27017/test`
 
+Download all required python packages using `pip install -r requirements.txt`
+
+To use our linting and autoformatting, install the pre-commit packages using `pre-commit install`
+
+Run linting and commit tests using `pre-commit run --all-files` at any time. They should run automatically on commit.
+
 To Run API from root directory, run
 
 ```
