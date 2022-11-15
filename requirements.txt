@@ -9,3 +9,9 @@ black==22.10.0
 pre-commit==2.20.0
 requests
 pytest
+beanie==1.11.6
+asgi_lifespan==1.0.1
+# To mock database
+mongomock==4.0.0
+mongomock-motor==0.0.12
+httpx

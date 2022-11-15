@@ -11,8 +11,8 @@ parent = os.path.abspath(".")
 sys.path.append(parent)
 
 
-from App.server.database import db
-from App.server.models.config import ConfigModel
+from OldApp.server.database import db
+from OldApp.server.models.config import ConfigModel
 
 load_dotenv()
 

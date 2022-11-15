@@ -7,7 +7,7 @@ from pydantic import BaseModel, Field
 parent = os.path.abspath(".")
 sys.path.append(parent)
 
-from App.server.models.id import PyObjectId
+from OldApp.server.models.id import PyObjectId
 
 
 class SS(BaseModel):

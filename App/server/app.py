@@ -1,30 +1,29 @@
 import os
 import sys
 
-from fastapi import FastAPI
-
 parent = os.path.abspath(".")
 sys.path.append(parent)
 
-from App.server.routes.config import router as ConfigRouter
-from App.server.routes.garden import router as GardenRouter
-from App.server.routes.ra import router as RARouter
-from App.server.routes.sa import router as SARouter
-from App.server.routes.sensor import router as SensorRouter
+from dotenv import dotenv_values
+from fastapi import FastAPI
+from pymongo import MongoClient
+
+from App.server.routes.garden import router as garden_router
+
+config = dotenv_values(".env")
 
 app = FastAPI()
 
-app.include_router(GardenRouter, tags=["Garden"], prefix="/Garden")
 
-app.include_router(SensorRouter, tags=["Sensor"], prefix="/Sensor")
-
-app.include_router(RARouter, tags=["RA"], prefix="/RA")
-
-app.include_router(SARouter, tags=["SA"], prefix="/SA")
-
-app.include_router(ConfigRouter, tags=["Config"], prefix="/Config")
+@app.on_event("startup")
+def startup_db_client():
+    app.mongodb_client = MongoClient(config["ATLAS_URI"])
+    app.database = app.mongodb_client[config["DB_NAME"]]
 
 
-@app.get("/", tags=["Root"])
-async def read_root():
-    return {"message": "Welcome to the 2022-23 Hydro API!"}
+@app.on_event("shutdown")
+def shutdown_db_client():
+    app.mongodb_client.close()
+
+
+app.include_router(garden_router, tags=["gardens"], prefix="/garden")
