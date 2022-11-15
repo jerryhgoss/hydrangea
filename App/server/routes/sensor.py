@@ -1,16 +1,20 @@
+import os
 import sys
-
-from fastapi import APIRouter, Body, HTTPException, status
-from fastapi.encoders import jsonable_encoder
-
-
-from dotenv import load_dotenv
-from fastapi.responses import JSONResponse
-from server.models.sensor import SensorModel, UpdateSensorModel
-from server.database import db
 from typing import List
 
-sys.path.append("../../server")
+from dotenv import load_dotenv
+from fastapi import APIRouter, Body, HTTPException, status
+from fastapi.encoders import jsonable_encoder
+from fastapi.responses import JSONResponse
+
+parent = os.path.abspath(".")
+sys.path.append(parent)
+
+from App.server.database import db
+from App.server.models.sensor import SensorModel, UpdateSensorModel
+
+# print(sys.path)
+
 load_dotenv()
 
 

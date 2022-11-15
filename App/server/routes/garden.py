@@ -1,14 +1,16 @@
+import os
 import sys
-from dotenv import load_dotenv
-from fastapi import APIRouter, Body, status, HTTPException
-from fastapi.encoders import jsonable_encoder
 from typing import List
+
+from dotenv import load_dotenv
+from fastapi import APIRouter, Body, HTTPException, status
+from fastapi.encoders import jsonable_encoder
 from fastapi.responses import JSONResponse
-from server.models.garden import GardenModel, UpdateGardenModel
-from server.database import db
 
-sys.path.append("../../server")
-
+parent = os.path.abspath(".")
+sys.path.append(parent)
+from App.server.database import db
+from App.server.models.garden import GardenModel, UpdateGardenModel
 
 load_dotenv()
 

@@ -7,3 +7,5 @@ python-dotenv==0.21.0
 flake8==5.0.4
 black==22.10.0
 pre-commit==2.20.0
+requests
+pytest

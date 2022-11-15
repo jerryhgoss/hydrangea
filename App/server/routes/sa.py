@@ -1,14 +1,19 @@
+import os
 import sys
 from typing import List
 
 from dotenv import load_dotenv
 from fastapi import APIRouter, Body, HTTPException, status
+
+parent = os.path.abspath(".")
+sys.path.append(parent)
+
 from fastapi.encoders import jsonable_encoder
 from fastapi.responses import JSONResponse
-from server.database import db
-from server.models.scheduled_actuator import ScheduledActuatorModel
 
-sys.path.append("../../server")
+from App.server.database import db
+from App.server.models.scheduled_actuator import ScheduledActuatorModel
+
 load_dotenv()
 
 router = APIRouter()
