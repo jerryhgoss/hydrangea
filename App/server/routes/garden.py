@@ -1,6 +1,10 @@
 import os
+
+# import pprint
 import sys
 from typing import List
+
+# import pymongo
 
 parent = os.path.abspath(".")
 sys.path.append(parent)
@@ -28,10 +32,12 @@ def create_garden(request: Request, garden: Garden = Body(...)):
     return created_garden
 
 
-@router.get("/", response_description="List all gardens", response_model=List[Garden])
-def list_gardens(request: Request):
-    gardens = list(request.app.database["gardens"].find(limit=100))
-    return gardens
+@router.get("/", response_description="List gardens", response_model=List[Garden])
+def list_gardens(request: Request, limit: int = 1000):
+    gardens = list(request.app.database["gardens"].find())
+    gardens = gardens[::-1]
+    # pprint.pprint(gardens)
+    return gardens[:limit]
 
 
 @router.get(
