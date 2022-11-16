@@ -2,7 +2,7 @@
 
 Newest data api for hydroponics.
 
-## Contribute
+## Use
 
 To setup, make sure you have python and pip installed.
 
@@ -10,8 +10,14 @@ Instantiate a [virtual environment](https://docs.python.org/3/library/venv.html)
 
 Download [Mongodb](https://www.mongodb.com/docs/manual/administration/install-community/) and optionally mongosh.
 
-Create a .env file with a database URL. To store database locally, add:
-` MONGODB_URL=mongodb://localhost:27017/test`
+Create a .env file with a database URI and database name. To run the database locally, your env would look like:
+
+```
+DB_NAME=pymongo_tutorial
+ATLAS_URI=mongodb://localhost:27017/test
+```
+
+To run database online, setup a [MongoDB Atlas URI connection string](https://www.mongodb.com/docs/atlas/getting-started/)
 
 Download all required python packages using `pip install -r requirements.txt`
 
@@ -22,7 +28,13 @@ Run linting and commit tests using `pre-commit run --all-files` at any time. The
 To Run API from root directory, run
 
 ```
-python3 app/main.py
+python3 App/main.py
+```
+
+To run unit tests: 
+
+```
+python3 -m pytest
 ```
 
 # Schema
