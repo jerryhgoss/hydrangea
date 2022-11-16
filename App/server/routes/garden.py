@@ -35,7 +35,10 @@ def create_garden(request: Request, garden: Garden = Body(...)):
 @router.get("/", response_description="List gardens", response_model=List[Garden])
 def list_gardens(request: Request, limit: int = 1000):
     gardens = list(request.app.database["gardens"].find())
-    gardens = gardens[::-1]
+    # gardens = gardens[::-1]
+    gardens.sort(key=lambda r: r["updated_at"], reverse=True)
+    # gardens = gardens[::-1]
+    # print(isinstance(gardens, list))
     # pprint.pprint(gardens)
     return gardens[:limit]
 
