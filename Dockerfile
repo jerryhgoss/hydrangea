@@ -6,8 +6,6 @@ WORKDIR /usr/src/app
 
 COPY ./requirements.txt ./
 
-COPY ./.env ./
-
 
 RUN pip install --upgrade pip
 
