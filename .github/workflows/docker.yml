@@ -21,7 +21,7 @@ jobs:
           pip install awsebcli
       - name: Init EB CLI
         run: |
-          eb init
+          eb init --region us-east-1 --platform Docker AL2 version 3.5.1
       - name: Deploy to Elastic Beanstalk
         run: |
           eb deploy
