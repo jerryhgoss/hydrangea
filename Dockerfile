@@ -1,20 +1,22 @@
 FROM python:3.10
 
-WORKDIR /usr/src/app
+
+
 
 # We copy just the requirements.txt first to leverage Docker cache
 
-COPY ./requirements.txt ./
+COPY ./requirements.txt /App/requirements.txt
 
+WORKDIR /App
 
-RUN pip install --upgrade pip
-
-RUN pip install --no-cache-dir -r requirements.txt
+RUN pip install --no-cache-dir --upgrade -r /App/requirements.txt
 
 # We also copy the required files and folders
 
-ADD ./App ./App
+COPY ./App /App
+
 
 EXPOSE 8000
 
-CMD ["python3", "App/main.py"]
+CMD ["python3", "main.py"]
+

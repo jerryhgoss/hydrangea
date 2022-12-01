@@ -1,17 +1,17 @@
-import os
+# import os
 
 # import pprint
 import sys
 from typing import List
 
-# import pymongo
-
-parent = os.path.abspath(".")
-sys.path.append(parent)
+# parent = os.path.abspath(".")
+sys.path.append("../server")
 from fastapi import APIRouter, Body, HTTPException, Request, Response, status
 from fastapi.encoders import jsonable_encoder
+from server.models.garden import Garden, GardenUpdate
 
-from App.server.models.garden import Garden, GardenUpdate
+# import pymongo
+
 
 router = APIRouter()
 
