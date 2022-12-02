@@ -3,4 +3,14 @@ branch-defaults:
     environment: null
     group_suffix: null
 global:
+  application_name: hydrangea
+  branch: main
+  default_platform: Docker running on 64bit Amazon Linux 2
+  default_region: us-west-2
+  instance_profile: null
+  platform_name: null
+  platform_version: null
   profile: null
+  repository: origin
+  sc: git
+  workspace_type: Application
