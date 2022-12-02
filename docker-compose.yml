@@ -1,11 +1,6 @@
-
 version: '3'
 services:
   deploy:
-    environment:
-        - ATLAS_URI=${ATLAS_URI}
-        - DB_NAME=${DB_NAME}
-        - PORT=${PORT}
     build:
       context: .
       dockerfile: Dockerfile
