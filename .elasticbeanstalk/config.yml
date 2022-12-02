@@ -5,8 +5,10 @@ branch-defaults:
 global:
   application_name: hydrangea
   branch: main
+  default_ec2_keyname: aws-eb
   default_platform: Docker running on 64bit Amazon Linux 2
   default_region: us-west-2
+  include_git_submodules: true
   instance_profile: null
   platform_name: null
   platform_version: null
