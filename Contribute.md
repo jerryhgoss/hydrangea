@@ -12,14 +12,15 @@ Instantiate a [virtual environment](https://docs.python.org/3/library/venv.html)
 
 Download [Mongodb](https://www.mongodb.com/docs/manual/administration/install-community/) and optionally mongosh.
 
-Create a .env file with a database URI and database name. To run the database locally, your env would look like:
+To run natively, you need 3 environmental variables:
 
 ```
 DB_NAME=pymongo_tutorial
 ATLAS_URI=mongodb://localhost:27017/test
+PORT=8000
 ```
 
-To run database online, setup a [MongoDB Atlas URI connection string](https://www.mongodb.com/docs/atlas/getting-started/)
+These will run the API with a local database. To run database online, setup a [MongoDB Atlas URI connection string](https://www.mongodb.com/docs/atlas/getting-started/)
 
 Download all required python packages using `pip install -r requirements.txt`
 

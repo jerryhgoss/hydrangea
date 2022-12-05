@@ -1,15 +1,25 @@
-# import os
+import os
 
 # import pprint
 import sys
 from typing import List
 
-# parent = os.path.abspath(".")
-sys.path.append("../server")
+parent = os.path.abspath(".")
+sys.path.append(parent)
+# sys.path.append("../server")
+print(sys.path)
 from fastapi import APIRouter, Body, HTTPException, Request, Response, status
 from fastapi.encoders import jsonable_encoder
-from server.models.garden import Garden, GardenUpdate
 
+# from App.server.models.tete import fefe
+
+# print("fefe is" + str(fefe))
+
+try:
+    from App.server.models.garden import Garden, GardenUpdate
+except ModuleNotFoundError:
+    sys.path.append("../server")
+    from server.models.garden import Garden, GardenUpdate
 # import pymongo
 
 
