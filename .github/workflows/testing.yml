@@ -9,11 +9,16 @@ on:
 permissions:
   contents: read
 
+# env:
+#   PORT: ${{ secrets.PORT }}
+#   ATLAS_URI: ${{ secrets.ATLAS_URI }}
+#   DB_NAME: ${{ secrets.DB_NAME }}
+
 jobs:
   test:
 
     runs-on: ubuntu-latest
-
+    environment: Hydroapi-env
     steps:
     - uses: actions/checkout@v3
     - name: Set up Python 3.10
