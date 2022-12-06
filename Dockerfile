@@ -14,11 +14,15 @@ WORKDIR /App
 
 RUN pip install --no-cache-dir --upgrade -r /App/requirements.txt
 
-ENV PORT=8000
+ARG PORT
+ARG ATLAS_URI
+ARG DB_NAME
 
-ENV ATLAS_URI=mongodb+srv://tzou2024:pswd@cluster0.ivgfrft.mongodb.net/?retryWrites=true&w=majority
+ENV PORT=$PORT
+ENV ATLAS_URI=$ATLAS_URI
+ENV DB_NAME=$DB_NAME
 
-ENV DB_NAME=hydro
+RUN echo $ATLAS_URI
 
 RUN printenv
 
