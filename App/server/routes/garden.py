@@ -4,14 +4,24 @@ import os
 import sys
 from typing import List
 
-# import pymongo
-
 parent = os.path.abspath(".")
 sys.path.append(parent)
+# sys.path.append("../server")
+print(sys.path)
 from fastapi import APIRouter, Body, HTTPException, Request, Response, status
 from fastapi.encoders import jsonable_encoder
 
-from App.server.models.garden import Garden, GardenUpdate
+# from App.server.models.tete import fefe
+
+# print("fefe is" + str(fefe))
+
+try:
+    from App.server.models.garden import Garden, GardenUpdate
+except ModuleNotFoundError:
+    sys.path.append("../server")
+    from server.models.garden import Garden, GardenUpdate
+# import pymongo
+
 
 router = APIRouter()
 

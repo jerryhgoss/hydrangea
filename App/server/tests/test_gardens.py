@@ -1,7 +1,11 @@
 import os
 import sys
 
-from dotenv import dotenv_values
+sys.path.append("../server")
+
+# sys.path.append('..')
+
+# from dotenv import dotenv_values
 from fastapi import FastAPI
 from fastapi.testclient import TestClient
 from pymongo import MongoClient
@@ -9,17 +13,20 @@ from pymongo import MongoClient
 parent = os.path.abspath(".")
 sys.path.append(parent)
 
+
+print(sys.path)
+
 from App.server.routes.garden import router as garden_router
 
 app = FastAPI()
-config = dotenv_values(".env")
+# config = dotenv_values(".env")
 app.include_router(garden_router, tags=["gardens"], prefix="/garden")
 
 
 @app.on_event("startup")
 async def startup_event():
-    app.mongodb_client = MongoClient(config["ATLAS_URI"])
-    app.database = app.mongodb_client[config["DB_NAME"] + "test"]
+    app.mongodb_client = MongoClient(os.environ["ATLAS_URI"])
+    app.database = app.mongodb_client[os.environ["DB_NAME"] + "test"]
 
 
 @app.on_event("shutdown")
