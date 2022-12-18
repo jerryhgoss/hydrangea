@@ -1,11 +1,7 @@
-import os
 import sys
 from typing import List
 
-parent = os.path.abspath(".")
-sys.path.append(parent)
 
-print(sys.path)
 from fastapi import APIRouter, Body, HTTPException, Request, status
 
 # delete import of Response ^^^

@@ -4,11 +4,14 @@ from typing import Optional
 
 from pydantic import BaseModel, Field, root_validator
 
+# from App.server.models.garden import Garden
+# gar_id = Garden().id()
+
 
 class Scheduled_Actuator(BaseModel):
     id: str = Field(default_factory=uuid.uuid4, alias="_id")
     name: str = Field(...)
-    location: str = Field(...)
+    garden_id: str = Field(...)
     created_at: datetime = datetime.utcnow()
     updated_at: datetime = datetime.utcnow()
 
@@ -24,7 +27,6 @@ class Scheduled_Actuator(BaseModel):
 
 class SA_Update(BaseModel):
     name: Optional[str]
-    location: Optional[str]
 
     class Config:
         schema_extra = {"example": {"name": "Don Quixote", "garden_id": "a47a4b121"}}
