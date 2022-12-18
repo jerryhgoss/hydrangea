@@ -5,6 +5,7 @@ from fastapi import FastAPI
 from pymongo import MongoClient
 from server.routes.garden import router as garden_router
 from server.routes.scheduled_actuator import router as scheduled_actuator_router
+
 # import sys
 
 
@@ -16,6 +17,7 @@ DB_NAME = os.environ["DB_NAME"]
 # config = dotenv_values(".env")
 
 app = FastAPI()
+
 
 @app.on_event("startup")
 def startup_db_client():
@@ -29,4 +31,6 @@ def shutdown_db_client():
 
 
 app.include_router(garden_router, tags=["gardens"], prefix="/garden")
-app.include_router(scheduled_actuator_router, tags=["scheduled actuators"], prefix="/sa")
+app.include_router(
+    scheduled_actuator_router, tags=["scheduled actuators"], prefix="/sa"
+)

@@ -14,22 +14,17 @@ class Scheduled_Actuator(BaseModel):
 
     class Config:
         allow_population_by_field_name = True
-        schema_extra = {
-            "example": {"name": "water pump",
-            "garden_id": "id number"}
-        }
+        schema_extra = {"example": {"name": "water pump", "garden_id": "id number"}}
 
         @root_validator
         def number_validator(cls, values):
             values["updated_at"] = datetime.utcnow()
             return values
 
+
 class SA_Update(BaseModel):
     name: Optional[str]
     location: Optional[str]
 
     class Config:
-        schema_extra = {
-            "example": {"name": "Don Quixote",
-            "garden_id": "a47a4b121"}
-        }
+        schema_extra = {"example": {"name": "Don Quixote", "garden_id": "a47a4b121"}}
