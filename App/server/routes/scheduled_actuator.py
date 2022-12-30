@@ -4,7 +4,6 @@ from typing import List
 
 from fastapi import APIRouter, Body, HTTPException, Request, status
 
-# delete import of Response ^^^
 from fastapi.encoders import jsonable_encoder
 
 try:
@@ -14,6 +13,8 @@ except ModuleNotFoundError:
     from server.models.scheduled_actuator import Scheduled_Actuator, SA_Update
 
 router = APIRouter()
+
+sa_db = "scheduled actuators"
 
 
 @router.post(
@@ -26,10 +27,8 @@ def create_scheduled_actuator(
     request: Request, scheduled_actuator: Scheduled_Actuator = Body(...)
 ):
     sa = jsonable_encoder(scheduled_actuator)
-    new_sa = request.app.database["scheduled actuator"].insert_one(sa)
-    created_sa = request.app.database["scheduled actuators"].find_one(
-        {"_id": new_sa.inserted_id}
-    )
+    new_sa = request.app.database[sa_db].insert_one(sa)
+    created_sa = request.app.database[sa_db].find_one({"_id": new_sa.inserted_id})
 
     return created_sa
 
@@ -40,7 +39,7 @@ def create_scheduled_actuator(
     response_model=List[Scheduled_Actuator],
 )
 def list_scheduled_actuators(request: Request, limit: int = 1000):
-    scheduled_actuators = list(request.app.database["scheduled actuators"].find())
+    scheduled_actuators = list(request.app.database[sa_db].find())
     scheduled_actuators.sort(key=lambda r: r["updated_at"], reverse=True)
 
     return scheduled_actuators[:limit]
@@ -52,9 +51,7 @@ def list_scheduled_actuators(request: Request, limit: int = 1000):
     response_model=Scheduled_Actuator,
 )
 def find_scheduled_actuator(id: str, request: Request):
-    if (
-        sa := request.app.database["scheduled_actuator"].find_one({"_id": id})
-    ) is not None:
+    if (sa := request.app.database[sa_db].find_one({"_id": id})) is not None:
         return sa
 
     raise HTTPException(
@@ -71,7 +68,7 @@ def update_scheduled_actuator(id: str, request: Request, sa: SA_Update = Body(..
     sa = {k: v for k, v in sa.dict().items() if v is not None}
 
     if len(sa) >= 1:
-        update_result = request.app.database["scheduled actuators"].update_one(
+        update_result = request.app.database[sa_db].update_one(
             {"_id": id}, {"$set": sa}
         )
 
@@ -81,9 +78,7 @@ def update_scheduled_actuator(id: str, request: Request, sa: SA_Update = Body(..
                 detail=f"Scheduled Actuator with ID {id} not found",
             )
     if (
-        existing_scheduled_actuator := request.app.database[
-            "scheduled actuators"
-        ].find_one({"_id": id})
+        existing_scheduled_actuator := request.app.database[sa_db].find_one({"_id": id})
     ) is not None:
         return existing_scheduled_actuator
 

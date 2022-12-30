@@ -3,9 +3,6 @@ import sys
 
 sys.path.append("../server")
 
-# sys.path.append('..')
-
-# from dotenv import dotenv_values
 from fastapi import FastAPI
 from fastapi.testclient import TestClient
 from pymongo import MongoClient
@@ -13,14 +10,13 @@ from pymongo import MongoClient
 parent = os.path.abspath(".")
 sys.path.append(parent)
 
-
+sa_db = "scheduled actuators"
 print(sys.path)
 
 from App.server.routes.scheduled_actuator import router as sa_router
 
 app = FastAPI()
-# config = dotenv_values(".env")
-app.include_router(sa_router, tags=["scheduled_actuators"], prefix="/sa")
+app.include_router(sa_router, tags=["sa_db"], prefix="/sa")
 
 
 @app.on_event("startup")
@@ -32,7 +28,7 @@ async def startup_event():
 @app.on_event("shutdown")
 async def shutdown_event():
     app.mongodb_client.close()
-    app.database.drop_collection("scheduled_actuators")
+    app.database.drop_collection(sa_db)
 
 
 def test_create_sa():
